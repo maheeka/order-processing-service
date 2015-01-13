@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:ax25="http://model.axis.maheeka.fasttrack.wso2.com/xsd" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:ax23="http://util.axis.maheeka.fasttrack.wso2.com/xsd" xmlns:xsd="http://service.axis.maheeka.fasttrack.wso2.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://service.axis.maheeka.fasttrack.wso2.com">
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.axis.maheeka.fasttrack.wso2.com/xsd">
+            <xs:complexType name="Order">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="customerName" nillable="true" type="xs:string"/>
+                    <xs:element minOccurs="0" name="orderDate" nillable="true" type="xs:date"/>
+                    <xs:element minOccurs="0" name="orderId" type="xs:int"/>
+                    <xs:element minOccurs="0" name="orderItems" nillable="true" type="xs:anyType"/>
+                    <xs:element minOccurs="0" name="totalPrice" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+            
+        </xs:schema>
+        <xs:schema xmlns:ax26="http://model.axis.maheeka.fasttrack.wso2.com/xsd" xmlns:ax24="http://util.axis.maheeka.fasttrack.wso2.com/xsd" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.axis.maheeka.fasttrack.wso2.com">
+            <xs:import namespace="http://util.axis.maheeka.fasttrack.wso2.com/xsd"/>
+            <xs:import namespace="http://model.axis.maheeka.fasttrack.wso2.com/xsd"/>
+            <xs:element name="OrderProcessingServiceOrderProcessingException">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="OrderProcessingException" nillable="true" type="ax23:OrderProcessingException"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getOrder">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="orderId" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getOrderResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="ax25:Order"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="addOrderItem">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="orderId" type="xs:int"/>
+                        <xs:element minOccurs="0" name="itemId" type="xs:int"/>
+                        <xs:element minOccurs="0" name="units" type="xs:double"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createOrder">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="customerName" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="createOrderResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://util.axis.maheeka.fasttrack.wso2.com/xsd">
+            <xs:complexType name="OrderProcessingException">
+                <xs:sequence/>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getOrderRequest">
+        <wsdl:part name="parameters" element="xsd:getOrder"/>
+    </wsdl:message>
+    <wsdl:message name="getOrderResponse">
+        <wsdl:part name="parameters" element="xsd:getOrderResponse"/>
+    </wsdl:message>
+    <wsdl:message name="OrderProcessingServiceOrderProcessingException">
+        <wsdl:part name="parameters" element="xsd:OrderProcessingServiceOrderProcessingException"/>
+    </wsdl:message>
+    <wsdl:message name="createOrderRequest">
+        <wsdl:part name="parameters" element="xsd:createOrder"/>
+    </wsdl:message>
+    <wsdl:message name="createOrderResponse">
+        <wsdl:part name="parameters" element="xsd:createOrderResponse"/>
+    </wsdl:message>
+    <wsdl:message name="addOrderItemRequest">
+        <wsdl:part name="parameters" element="xsd:addOrderItem"/>
+    </wsdl:message>
+    <wsdl:portType name="OrderProcessingServicePortType">
+        <wsdl:operation name="getOrder">
+            <wsdl:input message="xsd:getOrderRequest" wsaw:Action="urn:getOrder"/>
+            <wsdl:output message="xsd:getOrderResponse" wsaw:Action="urn:getOrderResponse"/>
+            <wsdl:fault message="xsd:OrderProcessingServiceOrderProcessingException" name="OrderProcessingServiceOrderProcessingException" wsaw:Action="urn:getOrderOrderProcessingServiceOrderProcessingException"/>
+        </wsdl:operation>
+        <wsdl:operation name="createOrder">
+            <wsdl:input message="xsd:createOrderRequest" wsaw:Action="urn:createOrder"/>
+            <wsdl:output message="xsd:createOrderResponse" wsaw:Action="urn:createOrderResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="addOrderItem">
+            <wsdl:input message="xsd:addOrderItemRequest" wsaw:Action="urn:addOrderItem"/>
+            <wsdl:output message="xsd:null" wsaw:Action="urn:addOrderItemResponse"/>
+            <wsdl:fault message="xsd:OrderProcessingServiceOrderProcessingException" name="OrderProcessingServiceOrderProcessingException" wsaw:Action="urn:addOrderItemOrderProcessingServiceOrderProcessingException"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="OrderProcessingServiceSoap11Binding" type="xsd:OrderProcessingServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getOrder">
+            <soap:operation soapAction="urn:getOrder" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderProcessingServiceOrderProcessingException">
+                <soap:fault use="literal" name="OrderProcessingServiceOrderProcessingException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="createOrder">
+            <soap:operation soapAction="urn:createOrder" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addOrderItem">
+            <soap:operation soapAction="urn:addOrderItem" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderProcessingServiceOrderProcessingException">
+                <soap:fault use="literal" name="OrderProcessingServiceOrderProcessingException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="OrderProcessingServiceSoap12Binding" type="xsd:OrderProcessingServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getOrder">
+            <soap12:operation soapAction="urn:getOrder" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderProcessingServiceOrderProcessingException">
+                <soap12:fault use="literal" name="OrderProcessingServiceOrderProcessingException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="createOrder">
+            <soap12:operation soapAction="urn:createOrder" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addOrderItem">
+            <soap12:operation soapAction="urn:addOrderItem" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="OrderProcessingServiceOrderProcessingException">
+                <soap12:fault use="literal" name="OrderProcessingServiceOrderProcessingException"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="OrderProcessingServiceHttpBinding" type="xsd:OrderProcessingServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="getOrder">
+            <http:operation location="getOrder"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="createOrder">
+            <http:operation location="createOrder"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="addOrderItem">
+            <http:operation location="addOrderItem"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="OrderProcessingService">
+        <wsdl:port name="OrderProcessingServiceHttpSoap11Endpoint" binding="xsd:OrderProcessingServiceSoap11Binding">
+            <soap:address location="http://localhost:8080/axis2/services/OrderProcessingService"/>
+        </wsdl:port>
+        <wsdl:port name="OrderProcessingServiceHttpSoap12Endpoint" binding="xsd:OrderProcessingServiceSoap12Binding">
+            <soap12:address location="http://localhost:8080/axis2/services/OrderProcessingService"/>
+        </wsdl:port>
+        <wsdl:port name="OrderProcessingServiceHttpEndpoint" binding="xsd:OrderProcessingServiceHttpBinding">
+            <http:address location="http://localhost:8080/axis2/services/OrderProcessingService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
